@@ -1,0 +1,39 @@
+return {
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    enabled = true,
+    opts = {
+      dim_inactive = { enabled = true, percentage = 0.25 },
+    },
+  },
+
+  {
+    "sho-87/kanagawa-paper.nvim",
+    enabled = false,
+    opts = {
+      dim_inactive = { enabled = true, percentage = 0.25 },
+    },
+  },
+
+  {
+    "EdenEast/nightfox.nvim",
+    enabled = false,
+    opts = {
+      dim_inactive = true,
+    },
+  },
+
+  {
+    "neanias/everforest-nvim",
+    version = false,
+    lazy = false,
+    priority = 1000, -- make sure to load this before all the other start plugins
+    -- Optional; default configuration will be used if setup isn't called.
+    config = function()
+      require("everforest").setup({
+        -- Your config here
+      })
+    end,
+  }
+}
