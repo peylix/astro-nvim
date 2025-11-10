@@ -20,29 +20,13 @@ local filetypes_to_wrap = {
   "asciidoc", "textile", "gitcommit", "mail"
 }
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "*",
-  callback = function()
-    if vim.tbl_contains(filetypes_to_wrap, vim.bo.filetype) then
-      vim.opt_local.wrap = true
-      vim.opt_local.linebreak = true
-      vim.opt_local.breakindent = true
-      vim.opt_local.showbreak = "↳ "
-    else
-      -- turn off wrap for other files
-      vim.opt_local.wrap = false
-    end
-  end,
-  group = vim.api.nvim_create_augroup("AutoWrap", { clear = true }),
-  desc = "Auto wrap for text files only"
-})
-
+-- show whitespace characters
 vim.o.list = true
 
 vim.opt.listchars = {
-  nbsp = '␣',      -- 不间断空格显示为 ␣ 符号
-  -- trail = '•',     -- 行尾多余空格显示为 • 符号
-  extends = '⟩',   -- 行内容超出右边界时显示 ⟩
-  precedes = '⟨',  -- 行内容超出左边界时显示 ⟨
+  nbsp = '␣', -- show non-breaking spaces as ␣
+  -- trail = '•', -- show trailing spaces as •
+  extends = '⟩', -- when line content exceeds right boundary, show ⟩
+  precedes = '⟨', -- when line content exceeds left boundary, show ⟨
 }
 
