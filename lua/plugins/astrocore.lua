@@ -58,8 +58,6 @@ return {
         ["<Leader>-"] = { desc = "Manage Files" },
         -- AI mappings
         ["<Leader>a"] = { desc = "AI" },
-        -- search and replace
-        ["<Leader>s"] = { desc = "Find & Replace" },
 
         -- mappings seen under group name "Buffer"
         ["<Leader>bd"] = {
