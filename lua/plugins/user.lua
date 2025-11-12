@@ -28,17 +28,13 @@ return {
           preset = "ivy",
           layout = {
             backdrop = 60,
-          }
-        }
+          },
+        },
       },
 
-      gh = {
+      gh = {},
 
-      },
-
-      scratch = {
-
-      },
+      scratch = {},
       dashboard = {
         preset = {
           header = table.concat({
@@ -97,13 +93,13 @@ return {
       },
     },
     keys = {
-    { "<leader>bt",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-    { "<leader>bS",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
-    { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
-    { "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
-    { "<leader>gq", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
-    { "<leader>gQ", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
-    }
+      { "<leader>bt", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+      { "<leader>bS", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+      { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
+      { "<leader>gI", function() Snacks.picker.gh_issue { state = "all" } end, desc = "GitHub Issues (all)" },
+      { "<leader>gq", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
+      { "<leader>gQ", function() Snacks.picker.gh_pr { state = "all" } end, desc = "GitHub Pull Requests (all)" },
+    },
   },
 
   -- You can also easily customize additional setup of plugins that is outside of the plugin's setup call
@@ -277,6 +273,19 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter-context",
-  }
+  },
 
+  {
+    "3rd/image.nvim",
+    build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
+    opts = {
+      processor = "magick_cli",
+      integrations = {
+        markdown = {
+          enabled = true,
+          auto_display = true,
+        },
+      },
+    },
+  },
 }
