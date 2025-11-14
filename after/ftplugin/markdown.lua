@@ -16,9 +16,9 @@ local opts_local = { silent = true, buffer = true }
 vim.keymap.set('n', 'j', function() return vim.v.count == 0 and 'gj' or 'j' end, opts_expr)
 vim.keymap.set('n', 'k', function() return vim.v.count == 0 and 'gk' or 'k' end, opts_expr)
 
--- for visual and operator-pending modes
-vim.keymap.set({'x','o'}, 'j', 'gj', opts_local)
-vim.keymap.set({'x','o'}, 'k', 'gk', opts_local)
+-- for visual mode
+vim.keymap.set({'x'}, 'j', 'gj', opts_local)
+vim.keymap.set({'x'}, 'k', 'gk', opts_local)
 
 -- move to beginning and end of display lines
 -- vim.keymap.set('n', '0', 'g0', opts_local)
