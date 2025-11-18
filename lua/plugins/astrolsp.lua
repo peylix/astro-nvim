@@ -69,6 +69,13 @@ return {
           },
         },
       },
+      tinymist = {
+        settings = {
+          formatterMode = "typstyle",
+          exportPdf = "onType",
+          semanticTokens = "disable"
+        }
+      }
     },
     -- customize how language servers are attached
     handlers = {
