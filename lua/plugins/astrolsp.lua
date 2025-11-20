@@ -45,7 +45,17 @@ return {
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
-      -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
+      clangd = {
+        capabilities = {
+          offsetEncoding = "utf-8"
+        },
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--clang-tidy",
+          "--header-insertion=never", -- Prevent clangd from adding #include directives automatically
+        }
+      },
       basedpyright = {
         settings = {
           basedpyright = {
