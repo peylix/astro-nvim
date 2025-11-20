@@ -14,12 +14,6 @@ vim.keymap.set( { "n", "x" }, "k", function()
 end, { expr = true, noremap = true, desc = "Move to BOL on first line, else move up" })
 
 
--- Toggle wrap based on filetypes
-local filetypes_to_wrap = {
-  "markdown", "tex", "latex", "plaintex", "txt", "rst", "org",
-  "asciidoc", "textile", "gitcommit", "mail"
-}
-
 -- show whitespace characters
 vim.o.list = true
 
