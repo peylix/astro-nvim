@@ -47,15 +47,16 @@ return {
     config = {
       clangd = {
         capabilities = {
-          offsetEncoding = "utf-8"
+          offsetEncoding = "utf-8",
         },
         cmd = {
           "clangd",
           "--background-index",
           "--clang-tidy",
           "--header-insertion=never", -- Prevent clangd from adding #include directives automatically
-        }
+        },
       },
+
       basedpyright = {
         settings = {
           basedpyright = {
@@ -79,13 +80,15 @@ return {
           },
         },
       },
+
       tinymist = {
         settings = {
           formatterMode = "typstyle",
           exportPdf = "onType",
-          semanticTokens = "disable"
-        }
-      }
+          semanticTokens = "disable",
+        },
+      },
+
     },
     -- customize how language servers are attached
     handlers = {
