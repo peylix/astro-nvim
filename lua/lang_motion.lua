@@ -50,11 +50,6 @@ function M.setup_keymaps()
   vim.keymap.set({ "n", "x", "o" }, "b", M.lang_motion "b", keymap_opts)
   vim.keymap.set({ "n", "x", "o" }, "ge", M.lang_motion "ge", keymap_opts)
 
-  vim.keymap.set({ "n", "x", "o" }, "W", M.lang_motion "W", keymap_opts)
-  vim.keymap.set({ "n", "x", "o" }, "E", M.lang_motion "E", keymap_opts)
-  vim.keymap.set({ "n", "x", "o" }, "B", M.lang_motion "B", keymap_opts)
-  vim.keymap.set({ "n", "x", "o" }, "gE", M.lang_motion "gE", keymap_opts)
-
   -- Mode toggle keymaps
   vim.keymap.set("n", "<leader>u[", M.set_chinese_mode, { noremap = true, silent = true, desc = "Set Chinese web motion" })
   vim.keymap.set("n", "<leader>u]", M.set_english_mode, { noremap = true, silent = true, desc = "Set English web motion" })
