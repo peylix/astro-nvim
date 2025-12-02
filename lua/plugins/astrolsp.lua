@@ -67,6 +67,10 @@ return {
               useLibraryCodeForTypes = true,
               autoSearchPaths = true,
               exclude = {
+                "**/.venv",
+                "**/.venv/**",
+                "**/venv",
+                "**/venv/**",
                 "**/.pkl",
                 "**/node_modules",
                 "**/.next",
@@ -75,6 +79,7 @@ return {
                 "**/dist/**",
                 "**/build/**",
                 "**/migrations",
+                "**/.csv"
               },
             },
           },
