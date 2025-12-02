@@ -145,22 +145,6 @@ return {
     end,
   },
 
-  {
-    {
-      "FabijanZulj/blame.nvim",
-      lazy = false,
-      config = function() require("blame").setup {} end,
-      keys = {
-        {
-          "<leader>ga",
-          mode = { "n", "v" },
-          "<cmd>BlameToggle<cr>",
-          desc = "Toggle the blame with provided view",
-        },
-      },
-    },
-  },
-
   ---@type LazySpec
   {
     "mikavilpas/yazi.nvim",
