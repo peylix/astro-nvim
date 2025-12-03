@@ -64,7 +64,7 @@ return {
             analysis = {
               autoImportCompletions = true,
               typeCheckingMode = "standard",
-              useLibraryCodeForTypes = true,
+              useLibraryCodeForTypes = false,
               autoSearchPaths = true,
               exclude = {
                 "**/.venv",
