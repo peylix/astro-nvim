@@ -1,16 +1,22 @@
--- Language-specific word motion
+-- Language-specific word motions
 -- Provides smart word motions for Chinese (jieba) and English (spider)
 
 local M = {}
 
-M.chinese_mode = false
+M.current_mode = "english" -- Current mode: "english" | "chinese"
 M.jieba = nil -- Cache jieba module after first load
 
--- Set Chinese mode
-function M.set_chinese_mode()
-  M.chinese_mode = true
+-- Set mode (generic function)
+function M.set_mode(mode)
+  if mode ~= "english" and mode ~= "chinese" then
+    vim.notify("Invalid mode: " .. mode, vim.log.levels.ERROR)
+    return
+  end
+
+  M.current_mode = mode
+
   -- Lazy load jieba when Chinese mode is activated
-  if not M.jieba then
+  if mode == "chinese" and not M.jieba then
     -- Load the jieba plugin
     require("lazy").load({ plugins = { "jieba.nvim" } })
     local ok, jieba = pcall(require, "jieba_nvim")
@@ -21,22 +27,29 @@ function M.set_chinese_mode()
       return
     end
   end
-  vim.notify("Word motion mode: 汉语", vim.log.levels.INFO)
+
+  local mode_names = { english = "English", chinese = "汉语" }
+  vim.notify("Word motion mode: " .. mode_names[mode], vim.log.levels.INFO)
 end
 
--- Set English mode
+-- Convenience functions for mode switching
+function M.set_chinese_mode()
+  M.set_mode("chinese")
+end
+
 function M.set_english_mode()
-  M.chinese_mode = false
-  vim.notify("Word motion mode: English", vim.log.levels.INFO)
+  M.set_mode("english")
 end
 
 -- Obtain current mode
-function M.get_mode() return M.chinese_mode and "chinese" or "english" end
+function M.get_mode()
+  return M.current_mode
+end
 
 -- Choose motion function smartly based on current mode
 function M.lang_motion(motion_type)
   return function()
-    if M.chinese_mode then
+    if M.current_mode == "chinese" then
       -- Chinese mode: use jieba.nvim (already loaded when mode was set)
       if M.jieba then
         local motion_func = M.jieba["wordmotion_" .. motion_type]
@@ -48,7 +61,7 @@ function M.lang_motion(motion_type)
       else
         vim.notify("Jieba not loaded. Please toggle Chinese mode first.", vim.log.levels.WARN)
       end
-    else
+    elseif M.current_mode == "english" then
       -- English mode: use nvim-spider
       local spider = require "spider"
       spider.motion(motion_type)
