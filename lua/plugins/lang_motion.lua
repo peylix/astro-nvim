@@ -1,10 +1,10 @@
 -- Language-specific word motion
--- For Chinese I use jieba.nvim and for English nvim-spider
+-- Provides smart word motions for Chinese (jieba) and English (spider)
 
----@class LanguageMotion
 local M = {}
 
 M.chinese_mode = false
+M.jieba = nil -- Cache jieba module after first load
 
 -- Set Chinese mode
 function M.set_chinese_mode()
@@ -56,18 +56,32 @@ function M.lang_motion(motion_type)
   end
 end
 
--- Set up keymaps for w/e/b/ge
-function M.setup_keymaps()
-  local keymap_opts = { noremap = true, silent = true }
+-- Plugin specifications
+return {
+  -- Chinese word segmentation
+  {
+    "noearc/jieba.nvim",
+    dependencies = { "noearc/jieba-lua" },
+    lazy = true, -- Only load when Chinese mode is toggled
+    opts = {
+      use_default_mappings = false,
+    },
+  },
 
-  vim.keymap.set({ "n", "x", "o" }, "w", M.lang_motion "w", keymap_opts)
-  vim.keymap.set({ "n", "x", "o" }, "e", M.lang_motion "e", keymap_opts)
-  vim.keymap.set({ "n", "x", "o" }, "b", M.lang_motion "b", keymap_opts)
-  vim.keymap.set({ "n", "x", "o" }, "ge", M.lang_motion "ge", keymap_opts)
+  -- English smart word motion
+  {
+    "chrisgrieser/nvim-spider",
+    lazy = true,
+    keys = {
+      -- Set up keymaps for w/e/b/ge
+      { "w", mode = { "n", "x", "o" }, M.lang_motion "w", desc = "Smart word motion: next word start" },
+      { "e", mode = { "n", "x", "o" }, M.lang_motion "e", desc = "Smart word motion: next word end" },
+      { "b", mode = { "n", "x", "o" }, M.lang_motion "b", desc = "Smart word motion: previous word start" },
+      { "ge", mode = { "n", "x", "o" }, M.lang_motion "ge", desc = "Smart word motion: previous word end" },
 
-  -- Mode toggle keymaps
-  vim.keymap.set("n", "<leader>u[", M.set_chinese_mode, { noremap = true, silent = true, desc = "Set Chinese web motion" })
-  vim.keymap.set("n", "<leader>u]", M.set_english_mode, { noremap = true, silent = true, desc = "Set English web motion" })
-end
-
-return M
+      -- Mode toggle keymaps
+      { "<leader>u[", M.set_chinese_mode, desc = "Set Chinese word motion" },
+      { "<leader>u]", M.set_english_mode, desc = "Set English word motion" },
+    },
+  },
+}

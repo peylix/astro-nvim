@@ -1,23 +1,5 @@
 return {
   {
-    "noearc/jieba.nvim",
-    dependencies = { "noearc/jieba-lua" },
-    lazy = true, -- Don't load on startup
-    opts = {
-      use_default_mappings = false,
-    },
-    config = function(_, opts)
-      require("jieba_nvim").setup(opts)
-    end,
-  },
-
-  {
-    "chrisgrieser/nvim-spider",
-    lazy = true,
-    -- keymaps are managed by lang_motion
-  },
-
-  {
     "folke/flash.nvim",
     event = "VeryLazy",
     ---@type Flash.Config

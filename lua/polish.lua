@@ -24,6 +24,3 @@ vim.opt.listchars = {
   precedes = '⟨', -- when line content exceeds left boundary, show ⟨
 }
 
--- Setup language motion keymaps (jieba will load lazily when Chinese mode is activated)
-require("lang_motion").setup_keymaps()
-
