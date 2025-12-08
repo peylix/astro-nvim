@@ -1,4 +1,5 @@
-if true then return {} end
+-- if true then return {} end
+-- TODO: Make this lazy-loaded when opening a Jupyter/Quarto file
 
 return {
   {
@@ -79,7 +80,7 @@ return {
       require("jupytext").setup {
         style = "markdown",
         output_extension = "md",
-        force_ft = "markdown",
+        force_ft = nil, -- Don't force filetype, let Neovim detect it
       }
     end,
   },

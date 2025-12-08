@@ -2,6 +2,8 @@
 -- things like custom filetypes. This is just pure lua so anything that doesn't
 -- fit in the normal config locations above can go here
 
+-- Configure Python provider to use uv-installed pynvim
+vim.g.python3_host_prog = vim.fn.expand "~/.local/bin/pynvim-python"
 
 -- Move to the end of the line if this is the last line
 vim.keymap.set( { "n", "x" }, "j", function()
