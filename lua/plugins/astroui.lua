@@ -11,15 +11,21 @@ return {
   ---@type AstroUIOpts
   opts = {
     -- change colorscheme
+    -- colorscheme = "vague",
     colorscheme = "catppuccin-mocha",
     -- colorscheme = "kanagawa-paper",
     -- colorscheme = "dayfox",
     -- colorscheme = "everforest",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
-      -- init = { -- this table overrides highlights in all themes
-      --   -- Normal = { bg = "#000000" },
-      -- },
+      init = function()
+        -- Ensure mini.icons highlights are set up after colorscheme loads
+        -- This fixes compatibility with colorschemes that don't define all mini.icons highlight groups
+        local has_mini_icons, mini_icons = pcall(require, "mini.icons")
+        if has_mini_icons then
+          pcall(mini_icons.setup)
+        end
+      end,
       -- astrodark = { -- a table of overrides/changes when applying the astrotheme theme
       --   -- Normal = { bg = "#000000" },
       -- },
@@ -40,3 +46,5 @@ return {
     },
   },
 }
+
+

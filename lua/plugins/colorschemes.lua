@@ -31,9 +31,22 @@ return {
     priority = 1000, -- make sure to load this before all the other start plugins
     -- Optional; default configuration will be used if setup isn't called.
     config = function()
-      require("everforest").setup({
+      require("everforest").setup {
         -- Your config here
-      })
+      }
     end,
-  }
+  },
+  {
+    "vague-theme/vague.nvim",
+    enabled = true,
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("vague").setup {
+        -- optional configuration here
+      }
+      -- Don't set colorscheme here, let AstroUI handle it
+    end,
+  },
 }
+
