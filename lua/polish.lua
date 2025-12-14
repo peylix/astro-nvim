@@ -3,6 +3,7 @@
 -- fit in the normal config locations above can go here
 
 -- Configure Python provider to use uv-installed pynvim
+-- This is for molten.nvim
 vim.g.python3_host_prog = vim.fn.expand "~/.local/bin/pynvim-python"
 
 -- Move to the end of the line if this is the last line
