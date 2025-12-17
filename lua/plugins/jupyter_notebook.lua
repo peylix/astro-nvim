@@ -1,4 +1,4 @@
--- if true then return {} end
+if true then return {} end
 -- TODO: Make this lazy-loaded when opening a Jupyter/Quarto file
 
 return {
