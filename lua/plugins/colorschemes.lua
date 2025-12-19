@@ -7,7 +7,7 @@ return {
       dim_inactive = { enabled = true, percentage = 0.25 },
       color_overrides = {
         mocha = {
-          lavender = "#9ba8fa",
+          lavender = "#c590b6",
         },
       },
     },
