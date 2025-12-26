@@ -4,7 +4,7 @@
 
 -- Configure Python provider to use uv-installed pynvim
 -- This is for molten.nvim
-vim.g.python3_host_prog = vim.fn.expand "~/.local/bin/pynvim-python"
+-- vim.g.python3_host_prog = vim.fn.expand "~/.local/bin/pynvim-python"
 
 -- Move to the end of the line if this is the last line
 vim.keymap.set( { "n", "x" }, "j", function()
