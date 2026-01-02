@@ -19,21 +19,38 @@ local function map_split(buf_id, lhs, direction, close_on_file)
   vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
-
 return {
-  'nvim-mini/mini.nvim',
+  "nvim-mini/mini.nvim",
   version = false,
   config = function()
-    require("mini.files").setup({
+    require("mini.files").setup {
       options = {
         permanent_delete = false, -- Delete files permanently when deleting. By default files are deleted to OS's trash bin
       },
       windows = {
         preview = true,
       },
-    })
-    require('mini.trailspace').setup()
-    vim.api.nvim_create_user_command('TrimWhitespace', MiniTrailspace.trim, { desc = 'Trim trailing whitespace from all lines in the current buffer using Mini.Trailspace' })
+    }
+
+    require("mini.trailspace").setup()
+    vim.api.nvim_create_user_command(
+      "TrimWhitespace",
+      MiniTrailspace.trim,
+      { desc = "Trim trailing whitespace from all lines in the current buffer using Mini.Trailspace" }
+    )
+
+    require("mini.ai").setup()
+
+    require("mini.surround").setup {
+      mappings = {
+        add = "gsa", -- Add surrounding in Normal and Visual modes
+        delete = "gsd", -- Delete surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        replace = "gsr", -- Replace surrounding
+      },
+    }
   end,
   dependencies = {
     {
