@@ -48,7 +48,7 @@ return {
         find = "gsf", -- Find surrounding (to the right)
         find_left = "gsF", -- Find surrounding (to the left)
         highlight = "gsh", -- Highlight surrounding
-        replace = "gsr", -- Replace surrounding
+        replace = "gsc", -- Replace surrounding
       },
     }
   end,
