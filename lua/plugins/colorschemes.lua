@@ -2,7 +2,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    enabled = true,
+    enabled = false,
     opts = {
       dim_inactive = { enabled = true, percentage = 0.25 },
       color_overrides = {
@@ -31,27 +31,20 @@ return {
   },
 
   {
-    "neanias/everforest-nvim",
-    version = false,
-    lazy = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
-    -- Optional; default configuration will be used if setup isn't called.
-    config = function()
-      require("everforest").setup {
-        -- Your config here
-      }
-    end,
-  },
-  {
     "vague-theme/vague.nvim",
     enabled = true,
     lazy = false,
-    priority = 1000,
+    -- priority = 1000,
     config = function()
-      require("vague").setup {
-        -- optional configuration here
-      }
+      require("vague").setup {}
       -- Don't set colorscheme here, let AstroUI handle it
     end,
+  },
+
+  {
+    "dgox16/oldworld.nvim",
+    enabled = false,
+    lazy = false,
+    priority = 1000,
   },
 }
