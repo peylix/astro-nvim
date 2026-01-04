@@ -21,10 +21,11 @@ return {
     },
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
     diagnostics = {
-      virtual_text = false,      underline = true,
+      virtual_text = false,
+      underline = true,
       virtual_lines = {
-        current_line = true
-      }
+        current_line = true,
+      },
     },
     -- vim options can be configured here
     options = {
@@ -54,8 +55,6 @@ return {
         ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
 
-        -- file management
-        ["<Leader>-"] = { desc = "Manage Files" },
         -- AI mappings
         ["<Leader>a"] = { desc = "AI" },
 
