@@ -13,6 +13,10 @@ return {
     keys = {
       { "<leader>gn", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
     },
+    opts = {
+      disable_line_numbers = false,
+      disable_relative_line_numbers = false,
+    }
   },
   {
     "topaxi/pipeline.nvim",
