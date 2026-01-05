@@ -38,6 +38,17 @@ return {
       MiniTrailspace.trim,
       { desc = "Trim trailing whitespace from all lines in the current buffer using Mini.Trailspace" }
     )
+    vim.api.nvim_create_user_command(
+      "TrimLastLine",
+      MiniTrailspace.trim_last_lines,
+      { desc = "Trim last lines that are empty or contain only whitespace using Mini.Trailspace" }
+    )
+
+    -- Avoid trailspace marking in Snacks dashboard
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "SnacksDashboardOpened",
+      callback = function(args) vim.b[args.buf].minitrailspace_disable = true end,
+    })
 
     require("mini.ai").setup()
 
