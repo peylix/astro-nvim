@@ -19,6 +19,7 @@ local function map_split(buf_id, lhs, direction, close_on_file)
   vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
+---@type LazySpec
 return {
   "nvim-mini/mini.nvim",
   version = false,
