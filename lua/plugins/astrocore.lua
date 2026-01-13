@@ -56,6 +56,12 @@ return {
         -- AI mappings
         ["<Leader>a"] = { desc = "AI" },
 
+        -- ToggleTerm
+        ["<Leader>ts"] = {
+          "<cmd>TermSelect<CR>",
+          desc = "Select Terminal",
+        },
+
         -- mappings seen under group name "Buffer"
         ["<Leader>bd"] = {
           function()
