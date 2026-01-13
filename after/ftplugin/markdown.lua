@@ -5,7 +5,8 @@ vim.opt_local.showbreak = "↳ "
 
 -- set spell checking
 vim.opt_local.spell = true
-vim.opt_local.spelllang = "en_us,cjk"
+vim.opt_local.spelllang = "en_us"
+
 
 
 -- Only for the current buffer

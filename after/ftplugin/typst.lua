@@ -4,7 +4,7 @@ vim.opt_local.breakindent = true
 vim.opt_local.showbreak = "↳ "
 
 vim.opt_local.spell = true
-vim.opt_local.spelllang = "en_us,cjk"
+vim.opt_local.spelllang = "en_us"
 
 -- Only for the current buffer
 local opts_expr = { expr = true, silent = true, buffer = true }
