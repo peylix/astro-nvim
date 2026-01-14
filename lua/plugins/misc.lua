@@ -71,4 +71,12 @@ return {
       vim.keymap.set("n", "<leader>-o", require("oil").toggle_float, { desc = "Toggle Oil" })
     end,
   },
+
+  {
+    "jrop/tuis.nvim",
+    config = function()
+      -- Optional: set up keymaps
+      vim.keymap.set("n", "<leader>tm", function() require("tuis").choose() end, { desc = "Choose Morph UI" })
+    end,
+  },
 }

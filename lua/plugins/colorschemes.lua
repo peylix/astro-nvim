@@ -48,4 +48,12 @@ return {
     lazy = false,
     priority = 1000,
   },
+
+  {
+    "nyoom-engineering/oxocarbon.nvim",
+    enabled = true,
+    -- config = function()
+    --   vim.opt.background = "dark"
+    -- end
+  },
 }

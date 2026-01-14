@@ -9,7 +9,8 @@ return {
   ---@type AstroUIOpts
   opts = {
     -- change colorscheme
-    colorscheme = "vague",
+    -- colorscheme = "vague",
+    colorscheme = "oxocarbon",
     -- colorscheme = "oldworld",
     -- colorscheme = "catppuccin-mocha",
     -- colorscheme = "kanagawa-paper",
