@@ -79,4 +79,10 @@ return {
       },
     },
   },
+
+  {
+    "yorumicolors/yorumi.nvim",
+    name = "yorumi",
+    priority = 1000,
+  }
 }

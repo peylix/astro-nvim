@@ -10,8 +10,9 @@ return {
   opts = {
     -- change colorscheme
     -- colorscheme = "vague",
+    colorscheme = "yorumi",
     -- colorscheme = "oxocarbon",
-    colorscheme = "evergarden",
+    -- colorscheme = "evergarden",
     -- colorscheme = "oldworld",
     -- colorscheme = "catppuccin-mocha",
     -- colorscheme = "kanagawa-paper",
