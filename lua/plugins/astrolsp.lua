@@ -27,10 +27,7 @@ return {
           -- "python",
         },
       },
-      disabled = { -- disable formatting capabilities for the listed language servers
-        -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
-        -- "lua_ls",
-      },
+      disabled = { "clangd" },
       timeout_ms = 1000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
       --   return true
@@ -51,7 +48,7 @@ return {
           "clangd",
           "--background-index",
           "--clang-tidy",
-          "--header-insertion=never", -- Prevent clangd from adding #include directives automatically
+          -- "--header-insertion=never",
         },
       },
 
@@ -145,8 +142,7 @@ return {
     -- A custom `on_attach` function to be run after the default `on_attach` function
     -- takes two parameters `client` and `bufnr`  (`:h lspconfig-setup`)
     on_attach = function(client, bufnr)
-      -- this would disable semanticTokensProvider for all clients
-      -- client.server_capabilities.semanticTokensProvider = nil
+      -- custom on_attach logic here
     end,
   },
 }

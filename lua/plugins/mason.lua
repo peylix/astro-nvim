@@ -21,6 +21,7 @@ return {
 
         -- install formatters
         "stylua",
+        "clang-format",
         -- "isort",
 
         -- install linters
