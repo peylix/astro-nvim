@@ -1,4 +1,4 @@
-local profile = require "lua.profile"
+local profile = require "profile"
 if profile.is_reduced then return {} end
 
 ---@type LazySpec
@@ -101,14 +101,6 @@ return {
         desc = "Sidekick Toggle OpenCode",
       },
     },
-  },
-
-  {
-    "sourcegraph/amp.nvim",
-    enabled = false,
-    branch = "main",
-    lazy = false,
-    opts = { auto_start = true, log_level = "info" },
   },
 
   {
