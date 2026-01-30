@@ -36,7 +36,7 @@ local lsp_reduced = {
   "stylua",
 
   -- install linters
-  "selene",
+  -- "selene",
 }
 
 ---@type LazySpec
