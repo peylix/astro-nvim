@@ -1,3 +1,44 @@
+local profile = require "lua.profile"
+local lsp_default = {
+  -- install language servers
+  "lua-language-server",
+  "basedpyright",
+  "bash-language-server",
+  "css-lsp",
+  "html-lsp",
+  "rust-analyzer",
+  "typescript-language-server",
+  "markdown-oxide",
+  "ruff",
+  "clangd",
+
+  -- install formatters
+  "stylua",
+  "clang-format",
+  -- "isort",
+
+  -- install linters
+  "selene",
+
+  -- install debuggers
+  -- "debugpy",
+
+  -- install any other package
+  -- "tree-sitter-cli",
+}
+
+local lsp_reduced = {
+  -- install language servers
+  "lua-language-server",
+  "bash-language-server",
+
+  -- install formatters
+  "stylua",
+
+  -- install linters
+  "selene",
+}
+
 ---@type LazySpec
 return {
   -- use mason-tool-installer for automatically installing Mason packages
@@ -6,34 +47,7 @@ return {
     -- overrides `require("mason-tool-installer").setup(...)`
     opts = {
       -- Make sure to use the names found in `:Mason`
-      ensure_installed = {
-        -- install language servers
-        "lua-language-server",
-        "basedpyright",
-        "bash-language-server",
-        "css-lsp",
-        "html-lsp",
-        "rust-analyzer",
-        "typescript-language-server",
-        "markdown-oxide",
-        "ruff",
-        "clangd",
-
-        -- install formatters
-        "stylua",
-        "clang-format",
-        -- "isort",
-
-        -- install linters
-        "selene",
-
-        -- install debuggers
-        -- "debugpy",
-
-        -- install any other package
-        -- "tree-sitter-cli",
-        "copilot-language-server",
-      },
+      ensure_installed = profile.is_reduced and lsp_reduced or lsp_default,
     },
   },
 }

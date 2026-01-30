@@ -1,3 +1,6 @@
+local profile = require "lua.profile"
+if profile.is_reduced then return {} end
+
 ---@type LazySpec
 return {
   {
