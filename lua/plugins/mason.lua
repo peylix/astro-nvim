@@ -30,10 +30,10 @@ local lsp_default = {
 local lsp_reduced = {
   -- install language servers
   "lua-language-server",
-  "bash-language-server",
+  -- "bash-language-server",
 
   -- install formatters
-  "stylua",
+  -- "stylua",
 
   -- install linters
   -- "selene",

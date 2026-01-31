@@ -5,13 +5,13 @@ My Neovim config based on AstroNvim v5.
 ## Dependencies
 
 1. Git
-2. Ripgrep
+2. ripgrep
 3. Node.js & npm
 4. Cargo
 
-## Reduced Mode
+## Reduced Profile
 
-To start nvim in reduced mode with this config, run:
+To start nvim with reduced config, run:
 ```bash
 export NVIM_PROFILE=reduced
 ```
