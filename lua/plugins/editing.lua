@@ -1,3 +1,5 @@
+local profile = require "profile"
+
 ---@type LazySpec
 return {
   {
@@ -153,11 +155,11 @@ return {
     "saghen/blink.cmp",
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
-    dependencies = { "fang2hou/blink-copilot" },
+    dependencies = profile.is_reduced and {} or { "fang2hou/blink-copilot" },
     opts = {
       sources = {
-        default = { "copilot" },
-        providers = {
+        default = profile.is_reduced and {} or { "copilot" },
+        providers = profile.is_reduced and {} or {
           copilot = {
             name = "copilot",
             module = "blink-copilot",
