@@ -13,6 +13,6 @@ My Neovim config based on AstroNvim v5.
 
 To start nvim with reduced config, run:
 ```bash
-export NVIM_PROFILE=reduced
+export PNVIM_PROFILE=reduced
 ```
 or add it to the shell config file (e.g., `~/.bashrc`, `~/.zshrc`)

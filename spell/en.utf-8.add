@@ -30,3 +30,7 @@ nvim
 js
 npm
 ripgrep
+gitignore
+YAML
+jupyter
+env

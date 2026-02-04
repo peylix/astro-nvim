@@ -1,8 +1,8 @@
 local M = {}
 
-local nvim_profile = vim.env.NVIM_PROFILE
+local pnvim_profile = vim.env.PNVIM_PROFILE
 
-M.name = (nvim_profile == "reduced" or nvim_profile == "default") and nvim_profile or "default"
+M.name = (pnvim_profile == "reduced" or pnvim_profile == "default") and pnvim_profile or "default"
 M.is_default = M.name == "default"
 M.is_reduced = M.name == "reduced"
 
