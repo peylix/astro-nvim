@@ -1,5 +1,5 @@
-if true then return {} end
--- TODO: Make this lazy-loaded when opening a Jupyter/Quarto file
+local profile = require "profile"
+if profile.is_reduced then return {} end
 
 ---@type LazySpec
 return {
@@ -8,8 +8,34 @@ return {
     -- uv tool install --upgrade pynvim
     "benlubas/molten-nvim",
     version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
+    ft = { "quarto", "qmd", "ipynb" },
     dependencies = { "3rd/image.nvim" },
     build = ":UpdateRemotePlugins",
+    cmd = {
+      "MoltenInit",
+      "MoltenEvaluateOperator",
+      "MoltenEvaluateVisual",
+      "MoltenReevaluateCell",
+      "MoltenEnterOutput",
+      "MoltenHideOutput",
+      "MoltenDelete",
+      "MoltenOpenInBrowser",
+    },
+    keys = {
+      { "<localleader>e", "<cmd>MoltenEvaluateOperator<cr>", desc = "evaluate operator", silent = true },
+      { "<localleader>os", "<cmd>noautocmd MoltenEnterOutput<cr>", desc = "open output window", silent = true },
+      { "<localleader>rr", "<cmd>MoltenReevaluateCell<cr>", desc = "re-eval cell", silent = true },
+      {
+        "<localleader>r",
+        "<cmd>MoltenEvaluateVisual<cr>gv",
+        mode = "v",
+        desc = "execute visual selection",
+        silent = true,
+      },
+      { "<localleader>oh", "<cmd>MoltenHideOutput<cr>", desc = "close output window", silent = true },
+      { "<localleader>md", "<cmd>MoltenDelete<cr>", desc = "delete Molten cell", silent = true },
+      { "<localleader>mx", "<cmd>MoltenOpenInBrowser<cr>", desc = "open output in browser", silent = true },
+    },
     init = function()
       -- these are examples, not defaults. Please see the readme
       vim.g.molten_image_provider = "image.nvim"
@@ -29,41 +55,11 @@ return {
       vim.g.molten_copy_output = true
       vim.g.molten_output_show_exec_time = false
     end,
-    config = function()
-      vim.keymap.set(
-        "n",
-        "<localleader>e",
-        ":MoltenEvaluateOperator<CR>",
-        { desc = "evaluate operator", silent = true }
-      )
-      vim.keymap.set(
-        "n",
-        "<localleader>os",
-        ":noautocmd MoltenEnterOutput<CR>",
-        { desc = "open output window", silent = true }
-      )
-      vim.keymap.set("n", "<localleader>rr", ":MoltenReevaluateCell<CR>", { desc = "re-eval cell", silent = true })
-      vim.keymap.set(
-        "v",
-        "<localleader>r",
-        ":<C-u>MoltenEvaluateVisual<CR>gv",
-        { desc = "execute visual selection", silent = true }
-      )
-      vim.keymap.set("n", "<localleader>oh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })
-      vim.keymap.set("n", "<localleader>md", ":MoltenDelete<CR>", { desc = "delete Molten cell", silent = true })
-
-      -- if you work with html outputs:
-      vim.keymap.set(
-        "n",
-        "<localleader>mx",
-        ":MoltenOpenInBrowser<CR>",
-        { desc = "open output in browser", silent = true }
-      )
-    end,
   },
   {
     -- see the image.nvim readme for more information about configuring this plugin
     "3rd/image.nvim",
+    ft = { "quarto", "qmd", "ipynb" },
     opts = {
       backend = "kitty", -- whatever backend you would like to use
       max_width = 100,
@@ -76,17 +72,50 @@ return {
   },
   {
     "GCBallesteros/jupytext.nvim",
-    lazy = false,
+    ft = { "quarto", "qmd", "markdown" },
+    event = { "BufReadPre *.ipynb", "BufNewFile *.ipynb" },
     config = function()
       require("jupytext").setup {
         style = "markdown",
         output_extension = "md",
+        custom_language_formatting = {
+          python = {
+            extension = "md",
+            style = "markdown",
+            force_ft = "markdown",
+          },
+        },
         force_ft = nil, -- Don't force filetype, let Neovim detect it
       }
     end,
   },
   {
+    "jmbuhr/otter.nvim",
+    ft = { "markdown" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      verbose = { no_code_found = false },
+    },
+    config = function(_, opts)
+      local otter = require "otter"
+      otter.setup(opts)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        callback = function(args)
+          local name = vim.api.nvim_buf_get_name(args.buf)
+          if name:match("%.ipynb$") then
+            otter.activate(nil, true, true)
+          end
+        end,
+      })
+    end,
+  },
+  {
     "quarto-dev/quarto-nvim",
+    ft = { "quarto", "qmd" },
     dependencies = {
       "jmbuhr/otter.nvim",
       "nvim-treesitter/nvim-treesitter",
