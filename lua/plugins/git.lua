@@ -1,3 +1,5 @@
+local profile = require "profile"
+
 ---@type LazySpec
 return {
   {
@@ -21,6 +23,7 @@ return {
   },
   {
     "topaxi/pipeline.nvim",
+    enabled = profile.is_default,
     keys = {
       { "<leader>ge", "<cmd>Pipeline<cr>", desc = "Open pipeline.nvim" },
     },

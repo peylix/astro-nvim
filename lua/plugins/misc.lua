@@ -1,7 +1,10 @@
+local profile = require "profile"
+
 ---@type LazySpec
 return {
   {
     "rmagatti/auto-session",
+    enabled = profile.is_default,
     lazy = false,
 
     ---enables autocomplete for opts
