@@ -22,17 +22,10 @@ vim.keymap.set(
   { expr = true, noremap = true, desc = "Move to BOL on first line, else move up" }
 )
 
--- Remapping keybindings for moving to the beginning and end of line
+-- Remapping keybindings for moving to the end of line
 vim.keymap.set(
   { "n", "x" },
-  "00",
-  "0",
-  { noremap = true, desc = "Move to beginning of line" }
-)
-
-vim.keymap.set(
-  { "n", "x" },
-  "09",
+  "-",
   "$",
   { noremap = true, desc = "Move to end of line" }
 )
