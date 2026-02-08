@@ -82,4 +82,27 @@ return {
       vim.keymap.set("n", "<leader>tm", function() require("tuis").choose() end, { desc = "Choose Morph UI" })
     end,
   },
+
+  {
+    "RaafatTurki/hex.nvim",
+    cmd = { "HexDump", "HexAssemble", "HexToggle" },
+    config = function() require("hex").setup() end,
+  },
+
+  {
+    "keaising/im-select.nvim",
+    -- for auto switching input method to English when entering/leaving insert mode or switching focus.
+    -- NOTE: The English input source should be US keyboard.
+    enabled = profile.is_default and vim.fn.has "mac" == 1,
+    event = { "InsertEnter", "FocusGained" },
+    config = function()
+      require("im_select").setup {
+        default_im_select = "com.apple.keylayout.US",
+        default_command = "macism",
+        set_default_events = { "InsertLeave", "CmdlineLeave", "FocusGained" },
+        set_previous_events = { "InsertEnter" },
+        async_switch_im = true,
+      }
+    end,
+  },
 }
