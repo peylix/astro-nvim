@@ -12,8 +12,8 @@ My Neovim config based on AstroNvim v5.
 6. Nerd Font (for icons)
 7. macism (for `im-select.nvim` on macOS)
 8. Python 3.10+
-    - `pynvim` package
-    - `jupyter_client` package
+   - `pynvim` package
+   - `jupyter_client` package
 
 ## Reduced Profile
 

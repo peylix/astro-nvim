@@ -8,8 +8,6 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
-
-      -- Only one of these is needed.
       "folke/snacks.nvim", -- optional
     },
     cmd = "Neogit",
@@ -19,6 +17,7 @@ return {
     opts = {
       disable_line_numbers = false,
       disable_relative_line_numbers = false,
+      graph_style = "kitty"
     }
   },
   {
