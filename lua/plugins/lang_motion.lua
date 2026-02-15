@@ -74,6 +74,7 @@ return {
   -- Chinese word segmentation
   {
     "noearc/jieba.nvim",
+    enabled = false, -- something weird happens to jieba.nvim recently so disable it now.
     dependencies = { "noearc/jieba-lua" },
     lazy = true, -- Only load when Chinese mode is toggled
     opts = {
@@ -93,8 +94,8 @@ return {
       { "ge", mode = { "n", "x", "o" }, M.lang_motion "ge", desc = "Smart word motion: previous word end" },
 
       -- Mode toggle keymaps
-      { "<leader>u[", M.set_chinese_mode, desc = "Set Chinese word motion" },
-      { "<leader>u]", M.set_english_mode, desc = "Set English word motion" },
+      -- { "<leader>u[", M.set_chinese_mode, desc = "Set Chinese word motion" },
+      -- { "<leader>u]", M.set_english_mode, desc = "Set English word motion" },
     },
   },
 }
