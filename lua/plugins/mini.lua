@@ -63,6 +63,10 @@ return {
         replace = "gsc", -- Replace surrounding
       },
     }
+
+    -- Sync the terminal background with the current colorscheme
+    require("mini.misc").setup()
+    MiniMisc.setup_termbg_sync()
   end,
   dependencies = {
     {
