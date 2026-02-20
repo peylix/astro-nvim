@@ -7,7 +7,10 @@ return {
     lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
-      "sindrets/diffview.nvim", -- optional - Diff integration
+      {
+        "esmuellert/codediff.nvim",
+        dependencies = { "MunifTanjim/nui.nvim" },
+      }, -- optional
       "folke/snacks.nvim", -- optional
     },
     cmd = "Neogit",
@@ -17,8 +20,8 @@ return {
     opts = {
       disable_line_numbers = false,
       disable_relative_line_numbers = false,
-      graph_style = "kitty"
-    }
+      graph_style = "kitty",
+    },
   },
   {
     "topaxi/pipeline.nvim",
