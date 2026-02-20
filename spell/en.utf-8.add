@@ -44,3 +44,6 @@ os
 th
 TPU
 NVIDIA
+softmax
+embeddings
+NLP

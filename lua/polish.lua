@@ -23,12 +23,7 @@ vim.keymap.set(
 )
 
 -- Remapping keybindings for moving to the end of line
-vim.keymap.set(
-  { "n", "x" },
-  "-",
-  "$",
-  { noremap = true, desc = "Move to end of line" }
-)
+vim.keymap.set({ "n", "x" }, "-", "$", { noremap = true, desc = "Move to end of line" })
 
 -- show whitespace characters
 vim.o.list = true

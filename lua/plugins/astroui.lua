@@ -9,14 +9,7 @@ return {
   ---@type AstroUIOpts
   opts = {
     -- change colorscheme
-    -- colorscheme = "vague",
     colorscheme = "yorumi",
-    -- colorscheme = "oxocarbon",
-    -- colorscheme = "evergarden",
-    -- colorscheme = "oldworld",
-    -- colorscheme = "catppuccin-mocha",
-    -- colorscheme = "kanagawa-paper",
-    -- colorscheme = "dayfox",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
       init = function()
