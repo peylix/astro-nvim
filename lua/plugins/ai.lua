@@ -104,6 +104,72 @@ return {
   },
 
   {
+    "ThePrimeagen/99",
+    config = function()
+      local _99 = require "99"
+
+      -- For logging that is to a file if you wish to trace through requests
+      -- for reporting bugs, i would not rely on this, but instead the provided
+      -- logging mechanisms within 99.  This is for more debugging purposes
+      local cwd = vim.uv.cwd()
+      local basename = vim.fs.basename(cwd)
+      _99.setup {
+        provider = _99.Providers.ClaudeCodeProvider,
+        -- provider = _99.Providers.OpenCodeProvider,
+        model = "claude-sonnet-4-6",
+        logger = {
+          level = _99.DEBUG,
+          path = "/tmp/" .. basename .. ".99.debug",
+          print_on_error = true,
+        },
+        -- When setting this to something that is not inside the CWD tools
+        -- such as claude code or opencode will have permission issues
+        -- and generation will fail refer to tool documentation to resolve
+        -- https://opencode.ai/docs/permissions/#external-directories
+        -- https://code.claude.com/docs/en/permissions#read-and-edit
+        tmp_dir = "./tmp",
+
+        --- Completions: #rules and @files in the prompt buffer
+        completion = {
+          custom_rules = {
+            "scratch/custom_rules/",
+          },
+
+          --- Configure @file completion (all fields optional, sensible defaults)
+          files = {
+            -- enabled = true,
+            -- max_file_size = 102400,     -- bytes, skip files larger than this
+            -- max_files = 5000,            -- cap on total discovered files
+            -- exclude = { ".env", ".env.*", "node_modules", ".git", ... },
+          },
+
+          source = "blink",
+        },
+
+        --- WARNING: if you change cwd then this is likely broken
+        --- ill likely fix this in a later change
+        md_files = {
+          "AGENTS.md",
+        },
+      }
+
+      -- take extra note that i have visual selection only in v mode
+      -- technically whatever your last visual selection is, will be used
+      -- so i have this set to visual mode so i dont screw up and use an
+      -- old visual selection
+      --
+      -- likely ill add a mode check and assert on required visual mode
+      -- so just prepare for it now
+      vim.keymap.set("v", "<leader>av", function() _99.visual() end, { desc = "99 Visual Implementation" })
+
+      --- if you have a request you dont want to make any changes, just cancel it
+      vim.keymap.set("n", "<leader>ax", function() _99.stop_all_requests() end, { desc = "99 Stop All Requests" })
+
+      vim.keymap.set("n", "<leader>as", function() _99.search() end, { desc = "99 Search" })
+    end,
+  },
+
+  {
     "yetone/avante.nvim",
     enabled = false,
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
