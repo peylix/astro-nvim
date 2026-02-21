@@ -1,6 +1,6 @@
 -- This function is taken from LazyVim: https://github.com/LazyVim/LazyVim/blob/cb223553ff73eb2f37ffb5dc0bb75b76a4677faf/lua/lazyvim/plugins/extras/editor/mini-files.lua
 local function map_split(buf_id, lhs, direction, close_on_file)
-  local files = require "mini.files"
+  local files = require("mini.files")
   local should_close = close_on_file == nil and true or close_on_file
 
   local rhs = function()
@@ -11,7 +11,7 @@ local function map_split(buf_id, lhs, direction, close_on_file)
     end)
 
     files.set_target_window(new_target)
-    files.go_in { close_on_file = should_close }
+    files.go_in({ close_on_file = should_close })
   end
 
   local desc = "Open in " .. direction .. " split"
@@ -24,36 +24,34 @@ return {
   "nvim-mini/mini.nvim",
   version = false,
   config = function()
-    require("mini.files").setup {
+    require("mini.files").setup({
       options = {
         permanent_delete = false, -- Delete files permanently when deleting. By default files are deleted to OS's trash bin
       },
       windows = {
         preview = true,
       },
-    }
+    })
 
     require("mini.trailspace").setup()
-    vim.api.nvim_create_user_command(
-      "TrimWhitespace",
-      MiniTrailspace.trim,
-      { desc = "Trim trailing whitespace from all lines in the current buffer using Mini.Trailspace" }
-    )
-    vim.api.nvim_create_user_command(
-      "TrimLastLine",
-      MiniTrailspace.trim_last_lines,
-      { desc = "Trim last lines that are empty or contain only whitespace using Mini.Trailspace" }
-    )
+    vim.api.nvim_create_user_command("TrimWhitespace", MiniTrailspace.trim, {
+      desc = "Trim trailing whitespace from all lines in the current buffer using Mini.Trailspace",
+    })
+    vim.api.nvim_create_user_command("TrimLastLine", MiniTrailspace.trim_last_lines, {
+      desc = "Trim last lines that are empty or contain only whitespace using Mini.Trailspace",
+    })
 
     -- Avoid trailspace marking in Snacks dashboard
     vim.api.nvim_create_autocmd("User", {
       pattern = "SnacksDashboardOpened",
-      callback = function(args) vim.b[args.buf].minitrailspace_disable = true end,
+      callback = function(args)
+        vim.b[args.buf].minitrailspace_disable = true
+      end,
     })
 
     require("mini.ai").setup()
 
-    require("mini.surround").setup {
+    require("mini.surround").setup({
       mappings = {
         add = "gsa", -- Add surrounding in Normal and Visual modes
         delete = "gsd", -- Delete surrounding
@@ -62,11 +60,13 @@ return {
         highlight = "gsh", -- Highlight surrounding
         replace = "gsc", -- Replace surrounding
       },
-    }
+    })
 
     -- Sync the terminal background with the current colorscheme
     require("mini.misc").setup()
     MiniMisc.setup_termbg_sync()
+
+    require("mini.cursorword").setup()
   end,
   dependencies = {
     {
@@ -123,19 +123,25 @@ return {
                   event = "User",
                   pattern = "MiniFilesActionCreate",
                   desc = "execute `didCreateFiles` operation when creating files",
-                  callback = function(args) require("astrolsp.file_operations").didCreateFiles(args.data.to) end,
+                  callback = function(args)
+                    require("astrolsp.file_operations").didCreateFiles(args.data.to)
+                  end,
                 },
                 {
                   event = "User",
                   pattern = "MiniFilesActionDelete",
                   desc = "execute `didDeleteFiles` operation when deleting files",
-                  callback = function(args) require("astrolsp.file_operations").didDeleteFiles(args.data.from) end,
+                  callback = function(args)
+                    require("astrolsp.file_operations").didDeleteFiles(args.data.from)
+                  end,
                 },
                 {
                   event = "User",
                   pattern = { "MiniFilesActionMove", "MiniFilesActionRename" },
                   desc = "execute `didRenameFiles` operation when moving or renaming files",
-                  callback = function(args) require("astrolsp.file_operations").didRenameFiles(args.data) end,
+                  callback = function(args)
+                    require("astrolsp.file_operations").didRenameFiles(args.data)
+                  end,
                 },
               },
             },
