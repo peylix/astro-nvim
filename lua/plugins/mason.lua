@@ -1,4 +1,4 @@
-local profile = require "profile"
+local profile = require("profile")
 local lsp_default = {
   -- install language servers
   "lua-language-server",

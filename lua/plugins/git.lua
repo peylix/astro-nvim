@@ -1,4 +1,4 @@
-local profile = require "profile"
+local profile = require("profile")
 
 ---@type LazySpec
 return {
@@ -38,7 +38,9 @@ return {
   {
     "FabijanZulj/blame.nvim",
     lazy = false,
-    config = function() require("blame").setup {} end,
+    config = function()
+      require("blame").setup({})
+    end,
     keys = {
       {
         "<leader>ga",
@@ -58,9 +60,9 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("octo").setup {
+      require("octo").setup({
         picker = "snacks",
-      }
+      })
     end,
   },
 }

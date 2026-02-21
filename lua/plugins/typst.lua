@@ -1,4 +1,4 @@
-local profile = require "profile"
+local profile = require("profile")
 
 ---@type LazySpec
 return {

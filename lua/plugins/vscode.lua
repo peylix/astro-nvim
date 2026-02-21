@@ -19,14 +19,16 @@ local plugins = {
 }
 
 -- add macOS-specific plugin if and only if i am on macOS, though i am usually on it.
-if vim.fn.has "mac" == 1 then table.insert(plugins, "im-select.nvim") end
+if vim.fn.has("mac") == 1 then table.insert(plugins, "im-select.nvim") end
 
-local Config = require "lazy.core.config"
+local Config = require("lazy.core.config")
 -- disable plugin update checking
 Config.options.checker.enabled = false
 Config.options.change_detection.enabled = false
 -- replace the default `cond`
-Config.options.defaults.cond = function(plugin) return vim.tbl_contains(plugins, plugin.name) end
+Config.options.defaults.cond = function(plugin)
+  return vim.tbl_contains(plugins, plugin.name)
+end
 
 ---@type LazySpec
 return {

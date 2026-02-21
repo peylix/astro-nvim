@@ -1,4 +1,4 @@
-local profile = require "profile"
+local profile = require("profile")
 
 ---@type LazySpec
 return {
@@ -8,20 +8,55 @@ return {
     ---@type Flash.Config
     opts = {},
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
     },
   },
 
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
-      require "astronvim.plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
+      require("astronvim.plugins.configs.luasnip")(plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom luasnip configuration such as filetype extend or custom snippets
-      local luasnip = require "luasnip"
+      local luasnip = require("luasnip")
       luasnip.filetype_extend("javascript", { "javascriptreact" })
     end,
   },
@@ -29,16 +64,18 @@ return {
   {
     "windwp/nvim-autopairs",
     config = function(plugin, opts)
-      require "astronvim.plugins.configs.nvim-autopairs"(plugin, opts) -- include the default astronvim config that calls the setup call
+      require("astronvim.plugins.configs.nvim-autopairs")(plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom autopairs configuration such as custom rules
-      local npairs = require "nvim-autopairs"
-      local Rule = require "nvim-autopairs.rule"
-      local cond = require "nvim-autopairs.conds"
+      local npairs = require("nvim-autopairs")
+      local Rule = require("nvim-autopairs.rule")
+      local cond = require("nvim-autopairs.conds")
       npairs.add_rules(
         {
           Rule("$", "$", { "tex", "latex" })
             -- don't add a pair if the next character is %
-            :with_pair(cond.not_after_regex "%%")
+            :with_pair(
+              cond.not_after_regex("%%")
+            )
             -- don't add a pair if  the previous character is xxx
             :with_pair(
               cond.not_before_regex("xxx", 3)
@@ -46,9 +83,13 @@ return {
             -- don't move right when repeat character
             :with_move(cond.none())
             -- don't delete if the next character is xx
-            :with_del(cond.not_after_regex "xx")
+            :with_del(
+              cond.not_after_regex("xx")
+            )
             -- disable adding a newline when you press <cr>
-            :with_cr(cond.none()),
+            :with_cr(
+              cond.none()
+            ),
         },
         -- disable for .vim files, but it work for another filetypes
         Rule("a", "a", "-vim")
@@ -96,16 +137,13 @@ return {
     config = function()
       -- optional setup call to override plugin options
       -- alternatively you can set options with vim.g.grug_far = { ... }
-      require("grug-far").setup {
+      require("grug-far").setup({
         -- options, see Configuration section below
         -- there are no required options atm
-        vim.keymap.set(
-          { "n", "x" },
-          "<leader>fR",
-          function() require("grug-far").open { visualSelectionUsage = "operate-within-range" } end,
-          { desc = "grug-far: Search within range" }
-        ),
-      }
+        vim.keymap.set({ "n", "x" }, "<leader>fR", function()
+          require("grug-far").open({ visualSelectionUsage = "operate-within-range" })
+        end, { desc = "grug-far: Search within range" }),
+      })
     end,
   },
 
@@ -139,13 +177,25 @@ return {
     keys = {
       {
         "<leader>fy",
-        function() Snacks.picker.yanky() end,
+        function()
+          Snacks.picker.yanky()
+        end,
         mode = { "n", "x" },
         desc = "Open Yank History",
       },
       { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
-      { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" },
-      { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
+      {
+        "p",
+        "<Plug>(YankyPutAfter)",
+        mode = { "n", "x" },
+        desc = "Put yanked text after cursor",
+      },
+      {
+        "P",
+        "<Plug>(YankyPutBefore)",
+        mode = { "n", "x" },
+        desc = "Put yanked text before cursor",
+      },
       {
         "gp",
         "<Plug>(YankyGPutAfter)",
@@ -158,16 +208,48 @@ return {
         mode = { "n", "x" },
         desc = "Put yanked text before cursor and leave cursor after",
       },
-      { "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Select previous entry through yank history" },
-      { "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
-      { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
-      { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
-      { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
-      { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
+      {
+        "<c-p>",
+        "<Plug>(YankyPreviousEntry)",
+        desc = "Select previous entry through yank history",
+      },
+      {
+        "<c-n>",
+        "<Plug>(YankyNextEntry)",
+        desc = "Select next entry through yank history",
+      },
+      {
+        "]p",
+        "<Plug>(YankyPutIndentAfterLinewise)",
+        desc = "Put indented after cursor (linewise)",
+      },
+      {
+        "[p",
+        "<Plug>(YankyPutIndentBeforeLinewise)",
+        desc = "Put indented before cursor (linewise)",
+      },
+      {
+        "]P",
+        "<Plug>(YankyPutIndentAfterLinewise)",
+        desc = "Put indented after cursor (linewise)",
+      },
+      {
+        "[P",
+        "<Plug>(YankyPutIndentBeforeLinewise)",
+        desc = "Put indented before cursor (linewise)",
+      },
       { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Put and indent right" },
       { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Put and indent left" },
-      { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
-      { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put before and indent left" },
+      {
+        ">P",
+        "<Plug>(YankyPutIndentBeforeShiftRight)",
+        desc = "Put before and indent right",
+      },
+      {
+        "<P",
+        "<Plug>(YankyPutIndentBeforeShiftLeft)",
+        desc = "Put before and indent left",
+      },
       { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
       { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
     },

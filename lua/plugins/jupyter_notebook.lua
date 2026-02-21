@@ -1,4 +1,4 @@
-local profile = require "profile"
+local profile = require("profile")
 if profile.is_reduced then return {} end
 
 ---@type LazySpec
@@ -22,9 +22,24 @@ return {
       "MoltenOpenInBrowser",
     },
     keys = {
-      { "<localleader>e", "<cmd>MoltenEvaluateOperator<cr>", desc = "evaluate operator", silent = true },
-      { "<localleader>os", "<cmd>noautocmd MoltenEnterOutput<cr>", desc = "open output window", silent = true },
-      { "<localleader>rr", "<cmd>MoltenReevaluateCell<cr>", desc = "re-eval cell", silent = true },
+      {
+        "<localleader>e",
+        "<cmd>MoltenEvaluateOperator<cr>",
+        desc = "evaluate operator",
+        silent = true,
+      },
+      {
+        "<localleader>os",
+        "<cmd>noautocmd MoltenEnterOutput<cr>",
+        desc = "open output window",
+        silent = true,
+      },
+      {
+        "<localleader>rr",
+        "<cmd>MoltenReevaluateCell<cr>",
+        desc = "re-eval cell",
+        silent = true,
+      },
       {
         "<localleader>r",
         "<cmd>MoltenEvaluateVisual<cr>gv",
@@ -32,9 +47,24 @@ return {
         desc = "execute visual selection",
         silent = true,
       },
-      { "<localleader>oh", "<cmd>MoltenHideOutput<cr>", desc = "close output window", silent = true },
-      { "<localleader>md", "<cmd>MoltenDelete<cr>", desc = "delete Molten cell", silent = true },
-      { "<localleader>mx", "<cmd>MoltenOpenInBrowser<cr>", desc = "open output in browser", silent = true },
+      {
+        "<localleader>oh",
+        "<cmd>MoltenHideOutput<cr>",
+        desc = "close output window",
+        silent = true,
+      },
+      {
+        "<localleader>md",
+        "<cmd>MoltenDelete<cr>",
+        desc = "delete Molten cell",
+        silent = true,
+      },
+      {
+        "<localleader>mx",
+        "<cmd>MoltenOpenInBrowser<cr>",
+        desc = "open output in browser",
+        silent = true,
+      },
     },
     init = function()
       -- these are examples, not defaults. Please see the readme
@@ -75,7 +105,7 @@ return {
     ft = { "quarto", "qmd", "markdown" },
     event = { "BufReadPre *.ipynb", "BufNewFile *.ipynb" },
     config = function()
-      require("jupytext").setup {
+      require("jupytext").setup({
         style = "markdown",
         output_extension = "md",
         custom_language_formatting = {
@@ -86,7 +116,7 @@ return {
           },
         },
         force_ft = nil, -- Don't force filetype, let Neovim detect it
-      }
+      })
     end,
   },
   {
@@ -99,16 +129,14 @@ return {
       verbose = { no_code_found = false },
     },
     config = function(_, opts)
-      local otter = require "otter"
+      local otter = require("otter")
       otter.setup(opts)
 
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "markdown",
         callback = function(args)
           local name = vim.api.nvim_buf_get_name(args.buf)
-          if name:match("%.ipynb$") then
-            otter.activate(nil, true, true)
-          end
+          if name:match("%.ipynb$") then otter.activate(nil, true, true) end
         end,
       })
     end,

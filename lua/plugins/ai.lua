@@ -1,4 +1,4 @@
-local profile = require "profile"
+local profile = require("profile")
 if profile.is_reduced then return {} end
 
 ---@type LazySpec
@@ -53,51 +53,67 @@ return {
       },
       {
         "<c-.>",
-        function() require("sidekick.cli").toggle() end,
+        function()
+          require("sidekick.cli").toggle()
+        end,
         desc = "Sidekick Toggle",
         mode = { "n", "t", "i", "x" },
       },
       {
         "<leader>aa",
-        function() require("sidekick.cli").toggle() end,
+        function()
+          require("sidekick.cli").toggle()
+        end,
         desc = "Sidekick Toggle CLI",
       },
       {
         "<leader>ad",
-        function() require("sidekick.cli").close() end,
+        function()
+          require("sidekick.cli").close()
+        end,
         desc = "Detach a CLI Session",
       },
 
       {
         "<leader>at",
-        function() require("sidekick.cli").send { msg = "{this}" } end,
+        function()
+          require("sidekick.cli").send({ msg = "{this}" })
+        end,
         mode = { "x", "n" },
         desc = "Send This",
       },
 
       {
         "<leader>af",
-        function() require("sidekick.cli").send { msg = "{file}" } end,
+        function()
+          require("sidekick.cli").send({ msg = "{file}" })
+        end,
         desc = "Send File",
       },
 
       {
         "<leader>av",
-        function() require("sidekick.cli").send { msg = "{selection}" } end,
+        function()
+          require("sidekick.cli").send({ msg = "{selection}" })
+        end,
         mode = { "x" },
         desc = "Send Visual Selection",
       },
 
       {
         "<leader>ap",
-        function() require("sidekick.cli").prompt() end,
+        function()
+          require("sidekick.cli").prompt()
+        end,
         mode = { "n", "x" },
         desc = "Sidekick Select Prompt",
       },
 
       {
         "<leader>ao",
-        function() require("sidekick.cli").toggle { name = "opencode", focus = true } end,
+        function()
+          require("sidekick.cli").toggle({ name = "opencode", focus = true })
+        end,
         desc = "Sidekick Toggle OpenCode",
       },
     },
@@ -106,14 +122,14 @@ return {
   {
     "ThePrimeagen/99",
     config = function()
-      local _99 = require "99"
+      local _99 = require("99")
 
       -- For logging that is to a file if you wish to trace through requests
       -- for reporting bugs, i would not rely on this, but instead the provided
       -- logging mechanisms within 99.  This is for more debugging purposes
       local cwd = vim.uv.cwd()
       local basename = vim.fs.basename(cwd)
-      _99.setup {
+      _99.setup({
         provider = _99.Providers.ClaudeCodeProvider,
         -- provider = _99.Providers.OpenCodeProvider,
         model = "claude-sonnet-4-6",
@@ -151,7 +167,7 @@ return {
         md_files = {
           "AGENTS.md",
         },
-      }
+      })
 
       -- take extra note that i have visual selection only in v mode
       -- technically whatever your last visual selection is, will be used
@@ -160,12 +176,18 @@ return {
       --
       -- likely ill add a mode check and assert on required visual mode
       -- so just prepare for it now
-      vim.keymap.set("v", "<leader>av", function() _99.visual() end, { desc = "99 Visual Implementation" })
+      vim.keymap.set("v", "<leader>av", function()
+        _99.visual()
+      end, { desc = "99 Visual Implementation" })
 
       --- if you have a request you dont want to make any changes, just cancel it
-      vim.keymap.set("n", "<leader>ax", function() _99.stop_all_requests() end, { desc = "99 Stop All Requests" })
+      vim.keymap.set("n", "<leader>ax", function()
+        _99.stop_all_requests()
+      end, { desc = "99 Stop All Requests" })
 
-      vim.keymap.set("n", "<leader>as", function() _99.search() end, { desc = "99 Search" })
+      vim.keymap.set("n", "<leader>as", function()
+        _99.search()
+      end, { desc = "99 Search" })
     end,
   },
 

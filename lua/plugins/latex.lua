@@ -1,4 +1,4 @@
-local profile = require "profile"
+local profile = require("profile")
 
 ---@type LazySpec
 return {
@@ -11,6 +11,8 @@ return {
     -- VimTeX configuration goes here, e.g.
     vim.g.vimtex_view_method = "skim"
     -- Snacks integration
-    vim.keymap.set("n", "<localleader>lt", function() return require("vimtex.snacks").toc() end)
+    vim.keymap.set("n", "<localleader>lt", function()
+      return require("vimtex.snacks").toc()
+    end)
   end,
 }

@@ -28,7 +28,9 @@ return {
     enabled = false,
     lazy = false,
     priority = 1000,
-    config = function() require("vague").setup {} end,
+    config = function()
+      require("vague").setup({})
+    end,
   },
 
   {

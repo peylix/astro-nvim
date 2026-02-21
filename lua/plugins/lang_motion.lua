@@ -59,11 +59,14 @@ function M.lang_motion(motion_type)
           vim.notify("Jieba motion not available: " .. motion_type, vim.log.levels.WARN)
         end
       else
-        vim.notify("Jieba not loaded. Please toggle Chinese mode first.", vim.log.levels.WARN)
+        vim.notify(
+          "Jieba not loaded. Please toggle Chinese mode first.",
+          vim.log.levels.WARN
+        )
       end
     elseif M.current_mode == "english" then
       -- English mode: use nvim-spider
-      local spider = require "spider"
+      local spider = require("spider")
       spider.motion(motion_type)
     end
   end
@@ -88,10 +91,30 @@ return {
     lazy = true,
     keys = {
       -- Set up keymaps for w/e/b/ge
-      { "w", mode = { "n", "x", "o" }, M.lang_motion "w", desc = "Smart word motion: next word start" },
-      { "e", mode = { "n", "x", "o" }, M.lang_motion "e", desc = "Smart word motion: next word end" },
-      { "b", mode = { "n", "x", "o" }, M.lang_motion "b", desc = "Smart word motion: previous word start" },
-      { "ge", mode = { "n", "x", "o" }, M.lang_motion "ge", desc = "Smart word motion: previous word end" },
+      {
+        "w",
+        mode = { "n", "x", "o" },
+        M.lang_motion("w"),
+        desc = "Smart word motion: next word start",
+      },
+      {
+        "e",
+        mode = { "n", "x", "o" },
+        M.lang_motion("e"),
+        desc = "Smart word motion: next word end",
+      },
+      {
+        "b",
+        mode = { "n", "x", "o" },
+        M.lang_motion("b"),
+        desc = "Smart word motion: previous word start",
+      },
+      {
+        "ge",
+        mode = { "n", "x", "o" },
+        M.lang_motion("ge"),
+        desc = "Smart word motion: previous word end",
+      },
 
       -- Mode toggle keymaps
       -- { "<leader>u[", M.set_chinese_mode, desc = "Set Chinese word motion" },
