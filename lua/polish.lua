@@ -28,3 +28,6 @@ vim.opt.listchars = {
   extends = "⟩", -- when line content exceeds right boundary, show ⟩
   precedes = "⟨", -- when line content exceeds left boundary, show ⟨
 }
+
+-- use xclip for clipboard on Linux
+if vim.fn.has("linux") == 1 then vim.g.clipboard = "xclip" end

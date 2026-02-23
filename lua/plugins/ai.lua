@@ -27,6 +27,7 @@ return {
     },
   },
 
+  -- now i use it only for its nes functionality.
   {
     "folke/sidekick.nvim",
     enabled = true,
@@ -35,7 +36,7 @@ return {
       cli = {
         mux = {
           backend = "zellij",
-          enabled = true,
+          enabled = false,
         },
       },
     },
@@ -51,71 +52,71 @@ return {
         expr = true,
         desc = "Goto/Apply Next Edit Suggestion",
       },
-      {
-        "<c-.>",
-        function()
-          require("sidekick.cli").toggle()
-        end,
-        desc = "Sidekick Toggle",
-        mode = { "n", "t", "i", "x" },
-      },
-      {
-        "<leader>aa",
-        function()
-          require("sidekick.cli").toggle()
-        end,
-        desc = "Sidekick Toggle CLI",
-      },
-      {
-        "<leader>ad",
-        function()
-          require("sidekick.cli").close()
-        end,
-        desc = "Detach a CLI Session",
-      },
-
-      {
-        "<leader>at",
-        function()
-          require("sidekick.cli").send({ msg = "{this}" })
-        end,
-        mode = { "x", "n" },
-        desc = "Send This",
-      },
-
-      {
-        "<leader>af",
-        function()
-          require("sidekick.cli").send({ msg = "{file}" })
-        end,
-        desc = "Send File",
-      },
-
-      {
-        "<leader>av",
-        function()
-          require("sidekick.cli").send({ msg = "{selection}" })
-        end,
-        mode = { "x" },
-        desc = "Send Visual Selection",
-      },
-
-      {
-        "<leader>ap",
-        function()
-          require("sidekick.cli").prompt()
-        end,
-        mode = { "n", "x" },
-        desc = "Sidekick Select Prompt",
-      },
-
-      {
-        "<leader>ao",
-        function()
-          require("sidekick.cli").toggle({ name = "opencode", focus = true })
-        end,
-        desc = "Sidekick Toggle OpenCode",
-      },
+      -- {
+      --   "<c-.>",
+      --   function()
+      --     require("sidekick.cli").toggle()
+      --   end,
+      --   desc = "Sidekick Toggle",
+      --   mode = { "n", "t", "i", "x" },
+      -- },
+      -- {
+      --   "<leader>aa",
+      --   function()
+      --     require("sidekick.cli").toggle()
+      --   end,
+      --   desc = "Sidekick Toggle CLI",
+      -- },
+      -- {
+      --   "<leader>ad",
+      --   function()
+      --     require("sidekick.cli").close()
+      --   end,
+      --   desc = "Detach a CLI Session",
+      -- },
+      --
+      -- {
+      --   "<leader>at",
+      --   function()
+      --     require("sidekick.cli").send({ msg = "{this}" })
+      --   end,
+      --   mode = { "x", "n" },
+      --   desc = "Send This",
+      -- },
+      --
+      -- {
+      --   "<leader>af",
+      --   function()
+      --     require("sidekick.cli").send({ msg = "{file}" })
+      --   end,
+      --   desc = "Send File",
+      -- },
+      --
+      -- {
+      --   "<leader>av",
+      --   function()
+      --     require("sidekick.cli").send({ msg = "{selection}" })
+      --   end,
+      --   mode = { "x" },
+      --   desc = "Send Visual Selection",
+      -- },
+      --
+      -- {
+      --   "<leader>ap",
+      --   function()
+      --     require("sidekick.cli").prompt()
+      --   end,
+      --   mode = { "n", "x" },
+      --   desc = "Sidekick Select Prompt",
+      -- },
+      --
+      -- {
+      --   "<leader>ao",
+      --   function()
+      --     require("sidekick.cli").toggle({ name = "opencode", focus = true })
+      --   end,
+      --   desc = "Sidekick Toggle OpenCode",
+      -- },
     },
   },
 
@@ -188,6 +189,84 @@ return {
       vim.keymap.set("n", "<leader>as", function()
         _99.search()
       end, { desc = "99 Search" })
+    end,
+  },
+
+  {
+    "nickjvandyke/opencode.nvim",
+    version = "*", -- Latest stable release
+    dependencies = {
+      {
+        -- `snacks.nvim` integration is recommended, but optional
+        ---@module "snacks" <- Loads `snacks.nvim` types for configuration intellisense
+        "folke/snacks.nvim",
+        optional = true,
+        opts = {
+          input = {}, -- Enhances `ask()`
+          picker = { -- Enhances `select()`
+            actions = {
+              opencode_send = function(...)
+                return require("opencode").snacks_picker_send(...)
+              end,
+            },
+            win = {
+              input = {
+                keys = {
+                  ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+                },
+              },
+            },
+          },
+          terminal = {}, -- Enables the `snacks` provider
+        },
+      },
+    },
+    config = function()
+      ---@type opencode.Opts
+      vim.g.opencode_opts = {
+        -- Your configuration, if any; goto definition on the type or field for details
+      }
+
+      vim.o.autoread = true -- Required for `opts.events.reload`
+
+      -- Recommended/example keymaps
+      vim.keymap.set({ "n", "x" }, "<leader>aq", function()
+        require("opencode").ask("@this: ", { submit = true })
+      end, { desc = "Ask opencode…" })
+      vim.keymap.set({ "n", "x" }, "<leader>ac", function()
+        require("opencode").select()
+      end, { desc = "Execute opencode action…" })
+      vim.keymap.set({ "n", "t" }, "<leader>aa", function()
+        require("opencode").toggle()
+      end, { desc = "Toggle opencode" })
+
+      vim.keymap.set({ "n", "x" }, "<leader>ar", function()
+        return require("opencode").operator("@this ")
+      end, { desc = "Add range to opencode", expr = true })
+      vim.keymap.set("n", "<leader>al", function()
+        return require("opencode").operator("@this ") .. "_"
+      end, { desc = "Add line to opencode", expr = true })
+
+      vim.keymap.set("n", "<S-C-u>", function()
+        require("opencode").command("session.half.page.up")
+      end, { desc = "Scroll opencode up" })
+      vim.keymap.set("n", "<S-C-d>", function()
+        require("opencode").command("session.half.page.down")
+      end, { desc = "Scroll opencode down" })
+
+      -- You may want these if you use the opinionated `<C-a>` and `<C-x>` keymaps above — otherwise consider `<leader>o…` (and remove terminal mode from the `toggle` keymap)
+      vim.keymap.set(
+        "n",
+        "+",
+        "<C-a>",
+        { desc = "Increment under cursor", noremap = true }
+      )
+      vim.keymap.set(
+        "n",
+        "-",
+        "<C-x>",
+        { desc = "Decrement under cursor", noremap = true }
+      )
     end,
   },
 
