@@ -91,6 +91,14 @@ return {
       desc = "Toggle Scratch Buffer",
     },
     {
+      "<leader>bT",
+      function()
+        Snacks.scratch.select()
+      end,
+      desc = "Select Scratch Buffer",
+    },
+
+    {
       "<leader>bS",
       function()
         Snacks.scratch.select()

@@ -161,12 +161,17 @@ return {
 
   {
     "jrop/tuis.nvim",
-    config = function()
-      -- Optional: set up keymaps
-      vim.keymap.set("n", "<leader>tm", function()
-        require("tuis").choose()
-      end, { desc = "Choose Morph UI" })
-    end,
+    lazy = true,
+    keys = {
+      {
+        "<leader>tm",
+        mode = "n",
+        function()
+          require("tuis").choose()
+        end,
+        desc = "Choose Morph UI",
+      },
+    },
   },
 
   {
